@@ -2,9 +2,6 @@
 import { GoogleGenAI } from "@google/genai";
 import { PROPERTY_DATA } from "../constants";
 
-// Initializing the GoogleGenAI client with the API key from environment variables.
-const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
-
 const SYSTEM_INSTRUCTION = `
 Eres un asistente experto en bienes raíces de lujo para la venta de la "${PROPERTY_DATA.name}".
 Tu objetivo es vender esta propiedad ubicada en ${PROPERTY_DATA.location}.
@@ -23,7 +20,9 @@ Responde de manera profesional, amable y persuasiva. Si no sabes algo, invita al
 
 export const getGeminiResponse = async (userMessage: string) => {
   try {
-    // Calling generateContent with the model name, prompt, and system instruction.
+    // Inicializamos la instancia justo antes de usarla para asegurar que el entorno esté listo
+    const ai = new GoogleGenAI({ apiKey: process.env.API_KEY || '' });
+    
     const response = await ai.models.generateContent({
       model: "gemini-3-flash-preview",
       contents: userMessage,
@@ -32,7 +31,7 @@ export const getGeminiResponse = async (userMessage: string) => {
         temperature: 0.7,
       },
     });
-    // Extracting text output directly from the .text property of GenerateContentResponse.
+    
     return response.text || "Lo siento, no pude procesar tu solicitud.";
   } catch (error) {
     console.error("Gemini Error:", error);
