@@ -1,346 +1,279 @@
 
-import React, { useState } from 'react';
-import { PROPERTY_DATA, ICONS } from './constants';
-import ChatWidget from './components/ChatWidget';
+import React from 'react';
+import { PROPERTY_DATA, ICONS } from './constants.tsx';
+import ChatWidget from './components/ChatWidget.tsx';
 
 const App: React.FC = () => {
-  const [formSubmitted, setFormSubmitted] = useState(false);
-  const [dossierRequested, setDossierRequested] = useState(false);
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setFormSubmitted(true);
-    setTimeout(() => setFormSubmitted(false), 5000);
-  };
-
-  const handleDossierRequest = () => {
-    setDossierRequested(true);
-    alert("Dossier Técnico preparado. Iniciando descarga simulada...");
-    setTimeout(() => setDossierRequested(false), 3000);
+  const openWhatsApp = () => {
+    window.open(`https://wa.me/${PROPERTY_DATA.whatsapp}?text=Hola,%20solicito%20información%20técnica%20sobre%20Hacienda%20Bitaco.`, '_blank');
   };
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-[#fafaf9] font-sans text-slate-900 overflow-x-hidden selection:bg-emerald-100">
       {/* Navigation */}
-      <nav className="fixed w-full z-40 glass-morphism border-b border-slate-200">
-        <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-          <div className="text-2xl font-bold text-emerald-900 tracking-tight flex items-center gap-2">
-            <ICONS.Factory className="text-emerald-600" />
-            <span>HACIENDA <span className="text-emerald-600">BITACO</span></span>
+      <nav className="fixed w-full z-[100] bg-white/90 backdrop-blur-xl border-b border-slate-100">
+        <div className="max-w-7xl mx-auto px-6 py-5 flex justify-between items-center">
+          <div className="flex items-center gap-4">
+            <div className="w-12 h-12 bg-emerald-950 rounded-2xl flex items-center justify-center text-white font-bold text-lg shadow-xl shadow-emerald-900/20">HB</div>
+            <div>
+              <span className="block text-base font-bold tracking-tight text-emerald-950 uppercase">Hacienda Bitaco</span>
+              <span className="block text-[10px] uppercase tracking-widest text-emerald-600 font-bold">Activo Agroindustrial</span>
+            </div>
           </div>
-          <div className="hidden md:flex space-x-8 text-sm font-semibold text-slate-600 uppercase tracking-widest items-center">
-            <a href="#inicio" className="hover:text-emerald-600 transition-colors">Inicio</a>
-            <a href="#infraestructura" className="hover:text-emerald-600 transition-colors">Infraestructura</a>
-            <a href="#galeria" className="hover:text-emerald-600 transition-colors">Galería</a>
-            <a href="#contacto" className="bg-emerald-800 text-white px-6 py-2 rounded-full hover:bg-emerald-700 transition-all shadow-lg hover:shadow-emerald-900/20">Contactar</a>
+          <div className="hidden lg:flex items-center gap-10">
+            {['Inversión', 'Galpones', 'Bioseguridad', 'Residencia'].map((item) => (
+              <a key={item} href={`#${item.toLowerCase()}`} className="text-[11px] font-bold uppercase tracking-widest text-slate-500 hover:text-emerald-800 transition-colors">
+                {item}
+              </a>
+            ))}
+            <button onClick={openWhatsApp} className="bg-emerald-900 text-white px-8 py-3 rounded-full text-[11px] font-bold uppercase tracking-widest hover:bg-emerald-800 transition-all shadow-lg hover:shadow-emerald-900/20">
+              Agendar Visita
+            </button>
           </div>
         </div>
       </nav>
 
-      {/* Hero Section */}
-      <section id="inicio" className="relative h-screen flex items-center justify-center overflow-hidden">
+      {/* Hero Section - Business Focus */}
+      <section className="relative h-screen flex items-center justify-center text-white overflow-hidden">
         <div className="absolute inset-0 z-0">
-          <img 
-            src={PROPERTY_DATA.images.hero} 
-            alt="Finca Bitaco Landscape" 
-            className="w-full h-full object-cover scale-105 animate-[pulse_10s_infinite]"
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/20 to-slate-50"></div>
+          <img src={PROPERTY_DATA.images.hero} className="w-full h-full object-cover scale-105 animate-pulse-slow" alt="Hacienda Background" />
+          <div className="absolute inset-0 bg-emerald-950/50 backdrop-brightness-75"></div>
+          <div className="absolute inset-0 bg-gradient-to-t from-emerald-950/80 via-transparent to-transparent"></div>
         </div>
         
-        <div className="relative z-10 text-center text-white px-6 max-w-5xl">
-          <div className="inline-block px-4 py-1 border border-emerald-400/50 rounded-full text-emerald-300 text-sm font-bold tracking-[0.2em] mb-6 uppercase bg-emerald-900/30 backdrop-blur-sm">
-            Propiedad Exclusiva • La Cumbre, Valle
+        <div className="relative z-10 text-center px-6 max-w-5xl">
+          <div className="inline-flex items-center gap-3 bg-white/10 backdrop-blur-md border border-white/20 px-6 py-2 rounded-full mb-10">
+            <ICONS.TrendingUp className="w-4 h-4 text-emerald-400" />
+            <span className="text-[11px] font-bold uppercase tracking-widest">Oportunidad de Inversión Única - 170 Madres</span>
           </div>
-          <h1 className="text-6xl md:text-9xl mb-8 font-bold leading-none tracking-tighter drop-shadow-2xl">
-            ELITE <br/><span className="text-emerald-400">AGRO-INDUSTRIAL</span>
+          
+          <h1 className="text-7xl md:text-9xl font-bold mb-8 tracking-tighter leading-[0.85] italic">
+            El Futuro del <span className="text-emerald-400">Negocio</span> Porcino
           </h1>
-          <p className="text-xl md:text-2xl mb-12 text-slate-100 font-light max-w-2xl mx-auto leading-relaxed">
-            Eficiencia técnica y entorno privilegiado en 14 cuadras dedicadas a la cría de alto rendimiento.
+          
+          <p className="text-xl md:text-2xl font-light mb-14 text-slate-100 leading-relaxed max-w-3xl mx-auto opacity-90">
+            Infraestructura técnica de nivel superior y bioseguridad blindada en la mejor ubicación estratégica del Valle del Cauca.
           </p>
-          <div className="flex flex-col sm:flex-row gap-6 justify-center">
-            <a href="#infraestructura" className="bg-emerald-600 hover:bg-emerald-500 text-white px-12 py-5 rounded-full text-lg font-bold transition-all transform hover:-translate-y-1 shadow-2xl flex items-center justify-center gap-2">
-              Ver Detalles Técnicos
-            </a>
-            <button 
-              onClick={handleDossierRequest}
-              className="bg-white/10 hover:bg-white/20 backdrop-blur-md text-white border border-white/30 px-12 py-5 rounded-full text-lg font-bold transition-all flex items-center justify-center gap-2 group"
-            >
-              <ICONS.Download className="group-hover:translate-y-1 transition-transform" />
-              Solicitar Dossier PDF
+          
+          <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
+            <button onClick={openWhatsApp} className="bg-emerald-500 hover:bg-emerald-400 text-emerald-950 px-12 py-6 rounded-full font-bold text-lg shadow-3xl hover:scale-105 transition-all flex items-center gap-3">
+              Descargar Dossier de Inversión <ICONS.ArrowRight className="w-5 h-5" />
             </button>
-          </div>
-        </div>
-        
-        <div className="absolute bottom-12 left-0 right-0 flex justify-center text-emerald-900/50">
-          <a href="#stats" className="animate-bounce">
-            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m7 13 5 5 5-5"/><path d="m7 6 5 5 5-5"/></svg>
-          </a>
-        </div>
-      </section>
-
-      {/* Stats Quick Grid */}
-      <section id="stats" className="bg-emerald-900 text-white py-20 relative overflow-hidden">
-        <div className="absolute top-0 right-0 opacity-10 pointer-events-none">
-          <ICONS.Factory style={{ width: '400px', height: '400px' }} />
-        </div>
-        <div className="max-w-7xl mx-auto px-6 relative z-10">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-12 text-center">
-            <div className="border-r border-emerald-800 last:border-0">
-              <div className="text-5xl md:text-7xl font-bold mb-3 tracking-tighter">14</div>
-              <div className="text-emerald-400 uppercase tracking-[0.2em] text-xs font-bold">Cuadras Totales</div>
-            </div>
-            <div className="border-r border-emerald-800 last:border-0">
-              <div className="text-5xl md:text-7xl font-bold mb-3 tracking-tighter">170</div>
-              <div className="text-emerald-400 uppercase tracking-[0.2em] text-xs font-bold">Madres (Capacidad)</div>
-            </div>
-            <div className="border-r border-emerald-800 last:border-0">
-              <div className="text-5xl md:text-7xl font-bold mb-3 tracking-tighter">800</div>
-              <div className="text-emerald-400 uppercase tracking-[0.2em] text-xs font-bold">Lechones Precebo</div>
-            </div>
-            <div className="last:border-0">
-              <div className="text-5xl md:text-7xl font-bold mb-3 tracking-tighter">30</div>
-              <div className="text-emerald-400 uppercase tracking-[0.2em] text-xs font-bold">Jaulas Lactancia</div>
-            </div>
+            <a href="#galpones" className="text-white font-bold tracking-widest uppercase text-xs border-b-2 border-white/30 pb-1 hover:border-emerald-400 transition-colors">
+              Ver Instalaciones Técnicas
+            </a>
           </div>
         </div>
       </section>
 
-      {/* Details & Description */}
-      <section id="infraestructura" className="py-32 bg-white">
+      {/* Investment Highlights */}
+      <section id="inversión" className="py-24 bg-white relative z-20">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="grid lg:grid-cols-2 gap-24 items-center">
-            <div className="order-2 lg:order-1">
-              <div className="flex items-center gap-4 mb-6">
-                <span className="h-px w-12 bg-emerald-600"></span>
-                <span className="text-emerald-600 font-bold tracking-widest uppercase text-sm">Ingeniería Agropecuaria</span>
-              </div>
-              <h2 className="text-5xl md:text-7xl text-emerald-950 mb-10 leading-[1.1] font-bold">Estructuras para el Éxito Operativo</h2>
-              <p className="text-slate-600 text-xl mb-12 leading-relaxed">
-                {PROPERTY_DATA.description}
-              </p>
-              
-              <div className="grid sm:grid-cols-1 gap-6 mb-12">
-                {PROPERTY_DATA.specs.map((spec, idx) => (
-                  <div key={idx} className="flex items-start gap-5 group p-2 rounded-xl transition-colors hover:bg-slate-50">
-                    <div className="mt-1 bg-emerald-100 p-2 rounded-lg text-emerald-700 group-hover:bg-emerald-600 group-hover:text-white transition-all">
-                      <ICONS.Check className="w-5 h-5" />
-                    </div>
-                    <span className="text-slate-800 font-semibold text-lg">{spec}</span>
-                  </div>
-                ))}
-              </div>
-
-              <div className="p-8 bg-emerald-50 rounded-3xl border border-emerald-100">
-                <p className="text-emerald-900 font-medium italic">
-                  "Una oportunidad única en el Valle del Cauca, lista para producción inmediata con certificaciones de bioseguridad proyectables."
-                </p>
-              </div>
-            </div>
-            
-            <div className="order-1 lg:order-2 grid grid-cols-2 gap-6">
-              <div className="space-y-6">
-                <div className="h-80 rounded-[3rem] overflow-hidden shadow-2xl transform hover:scale-[1.02] transition-transform">
-                   <img src={PROPERTY_DATA.images.infrastructure1} className="w-full h-full object-cover" alt="Detalle Industrial" />
-                </div>
-                <div className="h-96 rounded-[3rem] overflow-hidden shadow-2xl transform translate-x-6 hover:scale-[1.02] transition-transform">
-                   <img src={PROPERTY_DATA.images.landscape} className="w-full h-full object-cover" alt="Vistas de Bitaco" />
-                </div>
-              </div>
-              <div className="space-y-6 pt-12">
-                <div className="h-96 rounded-[3rem] overflow-hidden shadow-2xl transform -translate-x-6 hover:scale-[1.02] transition-transform">
-                   <img src={PROPERTY_DATA.images.infrastructure2} className="w-full h-full object-cover" alt="Gestión Técnica" />
-                </div>
-                <div className="h-80 rounded-[3rem] overflow-hidden shadow-2xl hover:scale-[1.02] transition-transform">
-                   <img src={PROPERTY_DATA.images.house} className="w-full h-full object-cover" alt="Casa Principal" />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Feature Highlight Cards */}
-      <section className="py-32 bg-slate-50 relative overflow-hidden">
-        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-emerald-200 to-transparent"></div>
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="grid md:grid-cols-3 gap-12">
+          <div className="grid md:grid-cols-4 gap-8">
             {[
-              {
-                icon: <ICONS.Shield />,
-                title: "Bio-Seguridad Total",
-                text: "Protocolos estrictos con sala de descontaminación, vestieres y gestión controlada de residuos."
-              },
-              {
-                icon: <ICONS.Location />,
-                title: "Zona Estratégica",
-                text: "Bitaco ofrece un microclima excepcional para la salud animal y cercanía a los principales centros de consumo."
-              },
-              {
-                icon: <ICONS.Home />,
-                title: "Habitabilidad",
-                text: "Vivienda completa de 3 habitaciones para el administrador, permitiendo monitoreo 24/7 de la producción."
-              }
-            ].map((f, i) => (
-              <div key={i} className="bg-white p-12 rounded-[2.5rem] shadow-sm border border-slate-100 hover:shadow-2xl transition-all group relative overflow-hidden">
-                <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-50 rounded-full translate-x-16 -translate-y-16 group-hover:bg-emerald-600 transition-colors"></div>
-                <div className="w-20 h-20 bg-emerald-50 text-emerald-600 rounded-2xl flex items-center justify-center mb-10 group-hover:bg-white group-hover:text-emerald-700 transition-all relative z-10">
-                  <span className="scale-125">{f.icon}</span>
-                </div>
-                <h3 className="text-3xl mb-6 text-emerald-950 font-bold relative z-10">{f.title}</h3>
-                <p className="text-slate-600 text-lg leading-relaxed relative z-10">
-                  {f.text}
-                </p>
+              { label: "Área Total", val: "14 Cuadras", sub: "Tierra Fértil", icon: <ICONS.MapPin /> },
+              { label: "Capacidad", val: "170 Madres", sub: "Producción Continua", icon: <ICONS.TrendingUp /> },
+              { label: "Bioseguridad", val: "Nivel ICA", sub: "Filtro Sanitario", icon: <ICONS.Shield /> },
+              { label: "Operación", val: "Ready-to-Go", sub: "Llave en Mano", icon: <ICONS.Briefcase /> }
+            ].map((stat, i) => (
+              <div key={i} className="bg-emerald-50/50 p-10 rounded-[3rem] border border-emerald-100 text-center hover:bg-emerald-50 transition-colors">
+                <div className="text-emerald-600 mb-6 flex justify-center scale-125">{stat.icon}</div>
+                <div className="text-3xl font-bold text-emerald-950 mb-2">{stat.val}</div>
+                <div className="text-[10px] uppercase tracking-widest text-emerald-700/60 font-black">{stat.label}</div>
+                <div className="text-[11px] text-slate-400 mt-2 font-medium">{stat.sub}</div>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Gallery Section */}
-      <section id="galeria" className="py-32 bg-white">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
+      {/* INFRAESTRUCTURA TÉCNICA - GALPONES */}
+      <section id="galpones" className="py-32 px-6">
+        <div className="max-w-7xl mx-auto">
+          <div className="flex flex-col lg:flex-row items-end justify-between mb-24 gap-10">
             <div className="max-w-2xl">
-              <h2 className="text-5xl md:text-6xl text-emerald-950 mb-6 font-bold tracking-tight">Recorrido Visual</h2>
-              <p className="text-slate-500 text-xl leading-relaxed">Infraestructura diseñada para la eficiencia masiva y la calidad superior en cada etapa del proceso.</p>
+              <span className="text-emerald-700 font-black tracking-[0.3em] text-[11px] uppercase mb-4 block">Ingeniería de Procesos</span>
+              <h2 className="text-5xl md:text-7xl font-bold text-emerald-950 italic tracking-tighter leading-tight mb-8">
+                Instalaciones de <br/>Máximo Rendimiento
+              </h2>
+              <p className="text-slate-500 text-xl font-light leading-relaxed">
+                Cada galpón ha sido diseñado para maximizar el índice de conversión alimenticia y garantizar el bienestar animal, pilares fundamentales de la rentabilidad porcina moderna.
+              </p>
             </div>
-            <button className="text-emerald-700 font-bold border-b-2 border-emerald-700 pb-1 uppercase tracking-widest hover:text-emerald-500 hover:border-emerald-500 transition-all">Ver Álbum Completo</button>
+            <div className="bg-emerald-900 text-white p-10 rounded-[3.5rem] flex items-center gap-6 shadow-2xl">
+               <div className="text-5xl font-bold italic text-emerald-400">800</div>
+               <div className="text-sm font-bold uppercase tracking-widest leading-tight">Capacidad total <br/>de precebo</div>
+            </div>
+          </div>
+
+          <div className="grid lg:grid-cols-2 gap-16">
+            {PROPERTY_DATA.sheds.map((shed, i) => (
+              <div key={i} className="group cursor-pointer">
+                <div className="aspect-[16/10] rounded-[4rem] overflow-hidden mb-12 shadow-2xl relative">
+                  <img src={shed.image} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000" alt={shed.title} />
+                  <div className="absolute top-8 left-8">
+                    <span className="bg-emerald-500 text-emerald-950 px-6 py-2 rounded-full text-[10px] font-black uppercase tracking-widest shadow-lg">
+                      {shed.capacity}
+                    </span>
+                  </div>
+                </div>
+                <div className="px-6">
+                  <h3 className="text-4xl font-bold text-emerald-950 mb-4 tracking-tight group-hover:text-emerald-700 transition-colors">{shed.title}</h3>
+                  <p className="text-slate-500 text-lg font-light leading-relaxed mb-8">{shed.desc}</p>
+                  <div className="flex items-center gap-3 text-emerald-700 font-bold text-xs uppercase tracking-widest">
+                    <ICONS.CheckCircle className="w-4 h-4" /> {shed.detail}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* BIOSEGURIDAD: EL BLINDAJE DEL NEGOCIO */}
+      <section id="bioseguridad" className="py-32 bg-emerald-950 text-white relative overflow-hidden">
+        <div className="absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-emerald-500/20 via-transparent to-transparent"></div>
+        <div className="max-w-7xl mx-auto px-6 relative z-10">
+          <div className="text-center mb-24">
+            <span className="text-emerald-400 font-bold tracking-[0.4em] text-[11px] uppercase mb-6 block">Estatus Sanitario Superior</span>
+            <h2 className="text-5xl md:text-8xl font-bold mb-10 italic tracking-tighter">Bioseguridad Inteligente</h2>
+            <p className="text-emerald-100/60 max-w-3xl mx-auto text-xl font-light leading-relaxed">
+              La protección de su patrimonio genético está garantizada a través de un diseño de flujo de personal y descontaminación que cumple con los más altos estándares internacionales.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {PROPERTY_DATA.biosecurity.features.map((feature, i) => (
+              <div key={i} className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-[3rem] overflow-hidden group hover:bg-white/10 transition-all p-4">
+                <div className="aspect-square rounded-[2.5rem] overflow-hidden mb-8 shadow-inner">
+                  <img src={feature.image} className="w-full h-full object-cover grayscale opacity-50 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700" alt={feature.name} />
+                </div>
+                <div className="p-4 text-center">
+                  <h4 className="text-xl font-bold mb-3">{feature.name}</h4>
+                  <p className="text-xs text-emerald-200/50 leading-relaxed font-light">{feature.detail}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-24 p-12 bg-white/5 border border-white/10 rounded-[4rem] flex flex-col md:flex-row items-center gap-12 text-center md:text-left">
+            <div className="w-24 h-24 bg-emerald-500/20 rounded-full flex items-center justify-center text-emerald-400 shrink-0">
+               <ICONS.Shield className="w-12 h-12" />
+            </div>
+            <div className="flex-1">
+               <h3 className="text-3xl font-bold mb-3 italic">Control Administrativo Integrado</h3>
+               <p className="text-emerald-100/50 font-light italic">
+                 Incluye oficina de gerencia, 2 baños y 2 vestidores independientes diseñados para un cambio de ropa aséptico y seguro.
+               </p>
+            </div>
+            <button onClick={openWhatsApp} className="bg-emerald-500 text-emerald-950 px-10 py-5 rounded-full font-black text-xs uppercase tracking-widest hover:scale-105 transition-all">
+              Consultar Planos Sanitarios
+            </button>
+          </div>
+        </div>
+      </section>
+
+      {/* RESIDENCIA: CALIDAD DE VIDA (3 HAB, 2 BAÑOS, 1 COCINA) */}
+      <section id="residencia" className="py-32 bg-white">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="flex flex-col md:flex-row items-end justify-between mb-24 gap-10">
+            <div className="max-w-2xl">
+              <span className="text-emerald-800 font-black tracking-[0.3em] text-[11px] uppercase mb-4 block">Confort del Inversor</span>
+              <h2 className="text-5xl md:text-7xl font-bold text-emerald-950 italic tracking-tighter leading-tight mb-8">
+                {PROPERTY_DATA.residence.title}
+              </h2>
+              <p className="text-slate-500 text-xl font-light leading-relaxed">
+                Porque el éxito en los negocios también se mide en calidad de vida. Una residencia moderna que ofrece el refugio perfecto tras una jornada productiva.
+              </p>
+            </div>
+            <div className="flex gap-4">
+              <div className="p-6 bg-slate-50 rounded-3xl border border-slate-100 text-center min-w-[120px]">
+                <div className="text-2xl font-bold text-emerald-900">3</div>
+                <div className="text-[9px] uppercase font-bold text-slate-400">Habitaciones</div>
+              </div>
+              <div className="p-6 bg-slate-50 rounded-3xl border border-slate-100 text-center min-w-[120px]">
+                <div className="text-2xl font-bold text-emerald-900">2</div>
+                <div className="text-[9px] uppercase font-bold text-slate-400">Baños</div>
+              </div>
+              <div className="p-6 bg-slate-50 rounded-3xl border border-slate-100 text-center min-w-[120px]">
+                <div className="text-2xl font-bold text-emerald-900">1</div>
+                <div className="text-[9px] uppercase font-bold text-slate-400">Cocina Int.</div>
+              </div>
+            </div>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
+            {PROPERTY_DATA.residence.items.map((item, i) => (
+              <div key={i} className="group bg-[#fafaf9] rounded-[3.5rem] p-5 shadow-sm border border-slate-100 hover:shadow-3xl hover:-translate-y-3 transition-all duration-700">
+                <div className="aspect-[4/5] rounded-[2.8rem] overflow-hidden mb-10 shadow-lg">
+                  <img src={item.image} className="w-full h-full object-cover group-hover:scale-110 transition-all duration-1000 ease-out" alt={item.name} />
+                </div>
+                <div className="px-6 pb-6 text-center">
+                   <h4 className="text-2xl font-bold text-emerald-950 mb-3 tracking-tight">{item.name}</h4>
+                   <p className="text-sm text-slate-400 font-light leading-relaxed">{item.detail}</p>
+                </div>
+              </div>
+            ))}
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-6 h-[800px]">
-            <div className="md:col-span-8 rounded-[3rem] overflow-hidden group cursor-pointer relative shadow-xl">
-              <img src="https://images.unsplash.com/photo-1545464150-137a1b328148?q=80&w=1200&auto=format&fit=crop" className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" alt="Galpones" />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-all p-12 flex items-end">
-                <span className="text-white text-2xl font-bold tracking-widest uppercase">Estructura de Galpones Centrales</span>
-              </div>
-            </div>
-            <div className="md:col-span-4 rounded-[3rem] overflow-hidden group cursor-pointer relative shadow-xl">
-              <img src="https://images.unsplash.com/photo-1605000797499-95a51c5269ae?q=80&w=800&auto=format&fit=crop" className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" alt="Suelo" />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-all p-12 flex items-end">
-                <span className="text-white text-xl font-bold tracking-widest uppercase">Entorno Rural Valle</span>
-              </div>
-            </div>
-            <div className="md:col-span-4 rounded-[3rem] overflow-hidden group cursor-pointer relative shadow-xl">
-              <img src="https://images.unsplash.com/photo-1599818817366-068d30e38a2e?q=80&w=800&auto=format&fit=crop" className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" alt="Cuidado" />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-all p-12 flex items-end">
-                <span className="text-white text-xl font-bold tracking-widest uppercase">Zona de Maternidad</span>
-              </div>
-            </div>
-            <div className="md:col-span-8 rounded-[3rem] overflow-hidden group cursor-pointer relative shadow-xl">
-              <img src="https://images.unsplash.com/photo-1589923188900-85dae523342b?q=80&w=1200&auto=format&fit=crop" className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" alt="Vista aérea" />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-all p-12 flex items-end">
-                <span className="text-white text-2xl font-bold tracking-widest uppercase">Panorámica 14 Cuadras</span>
-              </div>
-            </div>
+          <div className="mt-20 text-center">
+             <p className="text-slate-300 font-light italic text-sm">Espacios diseñados para reemplazo con fotografías reales del cliente.</p>
           </div>
         </div>
       </section>
 
-      {/* Contact Form Section */}
-      <section id="contacto" className="py-32 bg-emerald-950 text-white relative overflow-hidden">
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-emerald-500 via-transparent to-transparent"></div>
-        </div>
-
-        <div className="max-w-7xl mx-auto px-6 relative z-10">
-          <div className="grid lg:grid-cols-2 gap-24">
-            <div>
-              <div className="inline-block px-4 py-1 bg-emerald-800 rounded-full text-emerald-400 text-xs font-bold tracking-widest uppercase mb-8">
-                Inversión Real Estate
-              </div>
-              <h2 className="text-5xl md:text-7xl mb-10 leading-[1.1] font-bold">Inicie una Conversación de Negocios</h2>
-              <p className="text-slate-300 text-xl mb-12 leading-relaxed">
-                Esta es una propiedad de alta demanda técnica. Para recibir el portafolio financiero completo o agendar una inspección privada, complete el formulario.
-              </p>
-              
-              <div className="space-y-8">
-                <div className="flex items-center gap-6 group cursor-pointer">
-                  <div className="w-16 h-16 bg-emerald-900 rounded-2xl flex items-center justify-center border border-emerald-800 group-hover:bg-emerald-600 transition-all">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-                  </div>
-                  <div>
-                    <div className="text-emerald-500 text-sm font-bold uppercase tracking-widest mb-1">Director de Ventas</div>
-                    <div className="text-2xl font-bold">+57 312 456 7890</div>
-                  </div>
-                </div>
-                <div className="flex items-center gap-6 group cursor-pointer">
-                  <div className="w-16 h-16 bg-emerald-900 rounded-2xl flex items-center justify-center border border-emerald-800 group-hover:bg-emerald-600 transition-all">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
-                  </div>
-                  <div>
-                    <div className="text-emerald-500 text-sm font-bold uppercase tracking-widest mb-1">Canal Corporativo</div>
-                    <div className="text-2xl font-bold">inversiones@haciendabitaco.com</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-            <div className="bg-white rounded-[3rem] p-10 md:p-16 text-slate-950 shadow-2xl relative">
-              {formSubmitted ? (
-                <div className="h-full flex flex-col items-center justify-center text-center animate-in fade-in duration-500">
-                  <div className="w-24 h-24 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mb-8">
-                    <ICONS.Check style={{ width: '40px', height: '40px' }} />
-                  </div>
-                  <h3 className="text-3xl font-bold text-emerald-950 mb-4">¡Solicitud Enviada!</h3>
-                  <p className="text-slate-600 text-lg">Un consultor especializado le contactará en menos de 24 horas.</p>
-                  <button onClick={() => setFormSubmitted(false)} className="mt-8 text-emerald-600 font-bold underline">Enviar otro mensaje</button>
-                </div>
-              ) : (
-                <form onSubmit={handleSubmit} className="space-y-8">
-                  <div className="grid md:grid-cols-2 gap-6">
-                    <div>
-                      <label className="block text-xs font-bold text-slate-400 uppercase tracking-[0.2em] mb-3">Nombre</label>
-                      <input required type="text" className="w-full bg-slate-50 border border-slate-100 rounded-2xl px-6 py-5 focus:ring-2 focus:ring-emerald-500 outline-none transition-all placeholder-slate-300" placeholder="Su nombre" />
-                    </div>
-                    <div>
-                      <label className="block text-xs font-bold text-slate-400 uppercase tracking-[0.2em] mb-3">Empresa / Inversionista</label>
-                      <input type="text" className="w-full bg-slate-50 border border-slate-100 rounded-2xl px-6 py-5 focus:ring-2 focus:ring-emerald-500 outline-none transition-all placeholder-slate-300" placeholder="Opcional" />
-                    </div>
-                  </div>
-                  <div>
-                    <label className="block text-xs font-bold text-slate-400 uppercase tracking-[0.2em] mb-3">Email Corporativo</label>
-                    <input required type="email" className="w-full bg-slate-50 border border-slate-100 rounded-2xl px-6 py-5 focus:ring-2 focus:ring-emerald-500 outline-none transition-all placeholder-slate-300" placeholder="contacto@empresa.com" />
-                  </div>
-                  <div>
-                    <label className="block text-xs font-bold text-slate-400 uppercase tracking-[0.2em] mb-3">Mensaje de Interés</label>
-                    <textarea required className="w-full bg-slate-50 border border-slate-100 rounded-2xl px-6 py-5 focus:ring-2 focus:ring-emerald-500 outline-none transition-all h-32 placeholder-slate-300" placeholder="¿Desea agendar visita o solicitar datos financieros?"></textarea>
-                  </div>
-                  <button className="w-full bg-emerald-700 hover:bg-emerald-600 text-white font-bold py-6 rounded-2xl transition-all shadow-xl hover:shadow-emerald-700/20 uppercase tracking-[0.3em] text-sm">
-                    Solicitar Información Privada
-                  </button>
-                </form>
-              )}
-            </div>
+      {/* CTA FINAL - BUSINESS CLOSE */}
+      <section className="py-32 bg-[#fafaf9]">
+        <div className="max-w-5xl mx-auto px-6">
+          <div className="bg-emerald-900 rounded-[5rem] p-16 md:p-32 text-white shadow-4xl text-center relative overflow-hidden group">
+             <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]"></div>
+             <div className="relative z-10">
+               <h2 className="text-5xl md:text-8xl font-bold mb-10 italic tracking-tighter">Invierta con <span className="text-emerald-400">Visión</span></h2>
+               <p className="text-emerald-100/70 text-xl md:text-2xl font-light mb-16 max-w-2xl mx-auto leading-relaxed">
+                 Hacienda Bitaco no es solo tierra, es un sistema productivo maduro listo para generar rentabilidad desde el primer día.
+               </p>
+               <button onClick={openWhatsApp} className="bg-white text-emerald-950 px-16 py-7 rounded-full font-black text-lg hover:scale-105 transition-all shadow-2xl hover:bg-emerald-50">
+                 Solicitar Proyecciones Financieras
+               </button>
+             </div>
           </div>
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="bg-slate-950 text-slate-500 py-16 border-t border-slate-900">
+      {/* Footer Minimalista */}
+      <footer className="py-20 bg-white border-t border-slate-100">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-12 mb-16">
-            <div className="text-3xl font-bold text-white tracking-tighter">HACIENDA <span className="text-emerald-600">BITACO</span></div>
-            <div className="flex gap-10 text-sm font-bold uppercase tracking-widest text-slate-400">
-              <a href="#inicio" className="hover:text-white transition-colors">Inicio</a>
-              <a href="#infraestructura" className="hover:text-white transition-colors">Detalles</a>
-              <a href="#galeria" className="hover:text-white transition-colors">Portafolio</a>
-              <a href="#contacto" className="hover:text-white transition-colors">Contacto</a>
+          <div className="flex flex-col md:flex-row justify-between items-center gap-12">
+            <div className="flex items-center gap-4">
+              <div className="w-10 h-10 bg-emerald-900 rounded-xl flex items-center justify-center text-white font-bold">HB</div>
+              <span className="text-emerald-950 font-bold tracking-widest uppercase text-xs">Bitaco Portfolio 2024</span>
             </div>
-          </div>
-          <div className="pt-12 border-t border-slate-900 flex flex-col md:flex-row justify-between items-center gap-6 text-xs uppercase tracking-widest">
-            <div className="text-slate-600">© 2024 Hacienda Bitaco Elite Porcina. Vereda Bitaco, Valle del Cauca.</div>
-            <div className="flex gap-6">
-               <span className="hover:text-white cursor-pointer transition-colors">Aviso Legal</span>
-               <span className="hover:text-white cursor-pointer transition-colors">Privacidad</span>
-               <span className="hover:text-white cursor-pointer transition-colors">Cookies</span>
+            <div className="text-[10px] uppercase font-bold tracking-[0.3em] text-slate-300">
+               Estrategia • Ingeniería • Rentabilidad
+            </div>
+            <div className="flex gap-8 text-[11px] font-bold uppercase tracking-widest text-emerald-900">
+               <a href="#" className="hover:opacity-50">Linkedin</a>
+               <a href="#" className="hover:opacity-50">Whatsapp</a>
             </div>
           </div>
         </div>
       </footer>
 
-      {/* AI Assistant Button */}
       <ChatWidget />
+
+      {/* Styles */}
+      <style>{`
+        @keyframes pulse-slow {
+          0%, 100% { opacity: 0.8; }
+          50% { opacity: 1; }
+        }
+        .animate-pulse-slow {
+          animation: pulse-slow 8s infinite ease-in-out;
+        }
+        html { scroll-behavior: smooth; }
+        .shadow-3xl { box-shadow: 0 35px 60px -15px rgba(6, 78, 59, 0.3); }
+        .shadow-4xl { box-shadow: 0 50px 100px -20px rgba(6, 78, 59, 0.5); }
+      `}</style>
     </div>
   );
 };

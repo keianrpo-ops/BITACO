@@ -1,40 +1,55 @@
 
 import { GoogleGenAI } from "@google/genai";
-import { PROPERTY_DATA } from "../constants";
+import { PROPERTY_DATA } from "../constants.tsx";
 
 const SYSTEM_INSTRUCTION = `
-Eres un asistente experto en bienes raíces de lujo para la venta de la "${PROPERTY_DATA.name}".
-Tu objetivo es vender esta propiedad ubicada en ${PROPERTY_DATA.location}.
-Detalles clave:
-- Tamaño: ${PROPERTY_DATA.size}.
-- Capacidad de cría: 170 madres.
-- Precebo: 3 galpones, 800 lechones.
-- Maternidad: 1 galpón con 30 jaulas de lactancia.
-- Gestación: 1 galpón con 160 jaulas.
-- Cuarentena: 1 galpón para 80 animales grandes.
-- Infraestructura: Oficina, sala de descontaminación, 2 baños, 2 vestieres.
-- Vivienda: Casa con 3 habitaciones, 2 baños y cocina.
+Eres el Asistente Experto de Hacienda Bitaco. Tu objetivo es proporcionar información técnica precisa y persuasiva sobre esta propiedad porcina de 14 cuadras.
 
-Responde de manera profesional, amable y persuasiva. Si no sabes algo, invita al usuario a contactar directamente al agente.
+ESPECIFICACIONES CLAVE (Úsalas para convencer):
+1. PRODUCCIÓN TÉCNICA:
+   - Capacidad: 170 madres.
+   - Precebo: 3 galpones independientes (800 lechones en total).
+   - Maternidad: 30 jaulas de lactancia especializadas.
+   - Gestación: 160 jaulas técnicas.
+   - Cuarentena: Galpón aislado para 80 animales grandes.
+
+2. BIOSEGURIDAD Y ADMIN:
+   - Oficina administrativa ejecutiva.
+   - Sala de descontaminación de personal (vital para normas ICA).
+   - 2 Baños y 2 Vestidores independientes para garantizar el flujo sanitario.
+
+3. RESIDENCIA:
+   - Casa principal con 3 amplias habitaciones, 2 baños modernos y cocina integral equipada. Calidad de vida en el campo.
+
+4. UBICACIÓN:
+   - Vereda Bitaco, La Cumbre, Valle. Clima ideal para la salud porcina.
+
+REGLAS DE RESPUESTA:
+- Sé profesional, técnico y persuasivo.
+- Resalta la rentabilidad de tener infraestructura lista para operar.
+- Si preguntan por visitas o precios, dirige al WhatsApp +57 311 349 2439.
+- Nunca inventes datos que no estén aquí.
 `;
 
 export const getGeminiResponse = async (userMessage: string) => {
+  const apiKey = process.env.API_KEY;
+  
+  if (!apiKey || apiKey === "undefined" || apiKey === "") {
+    return "Hola. Soy el asistente técnico de Hacienda Bitaco. Contamos con 14 cuadras e infraestructura para 170 madres, incluyendo 3 galpones de precebo para 800 lechones. ¿Desea conocer detalles sobre el área de bioseguridad o la casa principal?";
+  }
+
   try {
-    // Inicializamos la instancia justo antes de usarla para asegurar que el entorno esté listo
-    const ai = new GoogleGenAI({ apiKey: process.env.API_KEY || '' });
-    
+    const ai = new GoogleGenAI({ apiKey });
     const response = await ai.models.generateContent({
       model: "gemini-3-flash-preview",
       contents: userMessage,
       config: {
         systemInstruction: SYSTEM_INSTRUCTION,
-        temperature: 0.7,
+        temperature: 0.5,
       },
     });
-    
-    return response.text || "Lo siento, no pude procesar tu solicitud.";
+    return response.text || "Lo siento, ¿podría repetir su consulta sobre la infraestructura?";
   } catch (error) {
-    console.error("Gemini Error:", error);
-    return "En este momento no puedo responder, por favor intenta contactarnos por el formulario.";
+    return "Hacienda Bitaco cuenta con 14 cuadras y capacidad técnica de 170 madres. Para una asesoría personalizada sobre los 3 galpones de precebo o la zona administrativa, contáctenos al 311 349 2439.";
   }
 };
