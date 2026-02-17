@@ -5,16 +5,23 @@ export const PROPERTY_DATA = {
   name: "Granja Porcina Elite Bitaco",
   location: "Vereda Bitaco, Municipio de La Cumbre (Valle del Cauca)",
   size: "14 Cuadras",
-  description: "Una infraestructura de vanguardia diseñada para la máxima eficiencia en la cría porcina. Ubicada en la privilegiada zona de Bitaco, esta finca combina un clima ideal con instalaciones industriales de primer nivel.",
+  description: "Una infraestructura de vanguardia diseñada para la máxima eficiencia en la cría porcina. Ubicada en la privilegiada zona de Bitaco, esta finca combina un clima ideal con instalaciones industriales de primer nivel. El entorno ofrece condiciones sanitarias óptimas y excelente conectividad vial.",
   specs: [
-    "Capacidad para 170 madres",
-    "3 galpones de precebo (800 lechones)",
-    "Galpón de maternidad (30 jaulas)",
-    "Galpón de gestación (160 jaulas)",
-    "Galpón de cuarentena (80 animales grandes)",
-    "Oficina y sala de descontaminación profesional",
-    "Casa principal de 3 habitaciones"
-  ]
+    "Capacidad instalada para 170 madres",
+    "3 galpones de precebo (cap. 800 lechones)",
+    "Galpón de maternidad con 30 jaulas de lactancia",
+    "Galpón de gestación con 160 jaulas técnicas",
+    "Galpón de cuarentena para 80 animales grandes",
+    "Oficina administrativa y sala de bio-seguridad",
+    "Casa principal con 3 habitaciones y acabados tradicionales"
+  ],
+  images: {
+    hero: "https://images.unsplash.com/photo-1500382017468-9049fed747ef?q=80&w=2000&auto=format&fit=crop",
+    infrastructure1: "https://images.unsplash.com/photo-1516467508483-a7212febe31a?q=80&w=800&auto=format&fit=crop",
+    infrastructure2: "https://images.unsplash.com/photo-1594498653385-d5172c532c00?q=80&w=800&auto=format&fit=crop",
+    landscape: "https://images.unsplash.com/photo-1444858291040-58f756a3bdd6?q=80&w=800&auto=format&fit=crop",
+    house: "https://images.unsplash.com/photo-1464226184884-fa280b87c399?q=80&w=800&auto=format&fit=crop"
+  }
 };
 
 export const ICONS = {
@@ -32,5 +39,8 @@ export const ICONS = {
   ),
   Check: (props: any) => (
     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" {...props}><polyline points="20 6 9 17 4 12"/></svg>
+  ),
+  Download: (props: any) => (
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="3" y2="15"/></svg>
   )
 };
